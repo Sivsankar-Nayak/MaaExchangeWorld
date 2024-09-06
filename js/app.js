@@ -163,7 +163,8 @@ const countryList = {
   ZWD: "ZW",
 };
 const dropdowns = document.querySelectorAll(".dropdown select");
-const btn = document.querySelector("form button");
+const btnGetrate = document.querySelector(".getrate button");
+const sendOrderDetails = document.querySelector(".sendorderdetails button");
 const fromCurr = document.querySelector(".from select");
 const toCurr = document.querySelector(".to select");
 const msg = document.querySelector(".msg");
@@ -217,11 +218,55 @@ const updateExchangeRate = async () => {
   }`;
   console.log("final amount", finalAmount);
 };
-btn.addEventListener("click", (evt) => {
+function sendwhatsapp() {
+  var phonenumber = "+917992889688";
+  let orderDetailsHeading = "ORDER DETAILS";
+  let orderno = Math.floor(Math.random() * 1000000 + 1);
+  let amount = document.querySelector(".amount input").value;
+  let fromCurr = document.querySelector(".from select").value;
+  let toCurr = document.querySelector(".to select").value;
+  let msg = document.querySelector(".msg").textContent;
+  var name = document.querySelector(".name input").value;
+  var email = document.querySelector(".email input").value;
+
+  var url =
+    "https://wa.me/" +
+    phonenumber +
+    "?text=" +
+    orderDetailsHeading +
+    "%0a" +
+    "Name : " +
+    name +
+    "%0a" +
+    "Email : " +
+    email +
+    "%0a" +
+    "Amount: " +
+    amount +
+    "%0a" +
+    "From : " +
+    fromCurr +
+    "%0a" +
+    "To : " +
+    toCurr +
+    "%0a" +
+    "Order ID : " +
+    orderno +
+    "%0a" +
+    "Estimated Amount Value to be transferred   : " +
+    msg +
+    "%0a";
+
+  window.open(url, "_blank").focus();
+}
+btnGetrate.addEventListener("click", (evt) => {
   evt.preventDefault();
   updateExchangeRate();
 });
-
+sendOrderDetails.addEventListener("click", (evt) => {
+  evt.preventDefault();
+  sendwhatsapp();
+});
 window.addEventListener("load", () => {
   updateExchangeRate();
 });
