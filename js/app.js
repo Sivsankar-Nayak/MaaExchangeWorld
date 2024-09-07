@@ -189,12 +189,24 @@ for (let select of dropdowns) {
 
 const updateFlag = (element) => {
   let currCode = element.value;
+  console.log("currcode", currCode);
   let countryCode = countryList[currCode];
   let newSrc = `https://flagsapi.com/${countryCode}/flat/64.png`;
   let img = element.parentElement.querySelector("img");
   img.src = newSrc;
 };
-
+const getRateCurrency = async (currencycode, flag) => {
+  if(flag===1){
+    
+  }
+  const URL = `${BASE_URL}/${fromCurr.value.toLowerCase()}.json`;
+  let response = await fetch(URL);
+  let data = await response.json();
+  let rate = data[fromCurr.value.toLowerCase()][toCurr.value.toLowerCase()];
+  console.log("rate inside function", rate);
+  return rate;
+};
+let usRate= getRateCurrency('usd',1);
 const updateExchangeRate = async () => {
   let amount = document.querySelector(".amount input");
   let amtVal = amount.value;
@@ -204,11 +216,8 @@ const updateExchangeRate = async () => {
   }
 
   // Updated URL structure
-  const URL = `${BASE_URL}/${fromCurr.value.toLowerCase()}.json`;
-
-  let response = await fetch(URL);
-  let data = await response.json();
-  let rate = data[fromCurr.value.toLowerCase()][toCurr.value.toLowerCase()];
+  let rate = await getRateCurrency();
+  console.log("rate", rate, fromCurr.value, toCurr.value);
   function roundToTwo(num) {
     return +(Math.round(num + "e+2") + "e-2");
   }
@@ -218,7 +227,7 @@ const updateExchangeRate = async () => {
   }`;
   console.log("final amount", finalAmount);
 };
-function sendwhatsapp() {
+const sendwhatsapp = async () => {
   var phonenumber = "+917992889688";
   let orderDetailsHeading = "ORDER DETAILS";
   let orderno = Math.floor(Math.random() * 1000000 + 1);
@@ -258,7 +267,7 @@ function sendwhatsapp() {
     "%0a";
 
   window.open(url, "_blank").focus();
-}
+};
 btnGetrate.addEventListener("click", (evt) => {
   evt.preventDefault();
   updateExchangeRate();
@@ -269,4 +278,5 @@ sendOrderDetails.addEventListener("click", (evt) => {
 });
 window.addEventListener("load", () => {
   updateExchangeRate();
+  sendwhatsapp();
 });
