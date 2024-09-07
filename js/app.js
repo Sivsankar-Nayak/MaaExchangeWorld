@@ -196,17 +196,29 @@ const updateFlag = (element) => {
   img.src = newSrc;
 };
 const getRateCurrency = async (currencycode, flag) => {
-  if(flag===1){
-    
+  let toCurrencyCode = "IND";
+  if (flag === 1) {
+    const tableURL = `${BASE_URL}/${currencycode.toLowerCase()}.json`;
+    console.log("tableurl", tableURL);
+    let tableResponse = await fetch(tableURL);
+    let tableData = await tableResponse.json();
+    let tableRate =
+      tableData[currencycode.toLowerCase()][toCurrencyCode.toLowerCase()];
+    return tableRate;
   }
   const URL = `${BASE_URL}/${fromCurr.value.toLowerCase()}.json`;
   let response = await fetch(URL);
   let data = await response.json();
   let rate = data[fromCurr.value.toLowerCase()][toCurr.value.toLowerCase()];
+
   console.log("rate inside function", rate);
   return rate;
 };
-let usRate= getRateCurrency('usd',1);
+const getAllCountriesValue = async () => {
+  let usRate = await getRateCurrency("USD", 1);
+  console.log("us rate ", usRate);
+};
+
 const updateExchangeRate = async () => {
   let amount = document.querySelector(".amount input");
   let amtVal = amount.value;
@@ -280,3 +292,4 @@ window.addEventListener("load", () => {
   updateExchangeRate();
   sendwhatsapp();
 });
+window.onload = getAllCountriesValue();
