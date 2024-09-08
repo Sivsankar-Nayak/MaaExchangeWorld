@@ -290,6 +290,5 @@ sendOrderDetails.addEventListener("click", (evt) => {
 });
 window.addEventListener("load", () => {
   updateExchangeRate();
-  sendwhatsapp();
+  getAllCountriesValue();
 });
-window.onload = getAllCountriesValue();
