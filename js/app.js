@@ -238,6 +238,7 @@ const updateExchangeRate = async () => {
     toCurr.value
   }`;
   console.log("final amount", finalAmount);
+  return msg.innerText;
 };
 const sendwhatsapp = async () => {
   var phonenumber = "+917992889688";
@@ -246,7 +247,7 @@ const sendwhatsapp = async () => {
   let amount = document.querySelector(".amount input").value;
   let fromCurr = document.querySelector(".from select").value;
   let toCurr = document.querySelector(".to select").value;
-  let msg = document.querySelector(".msg").textContent;
+  let msg = await updateExchangeRate();
   var name = document.querySelector(".name input").value;
   var email = document.querySelector(".email input").value;
 
