@@ -85,8 +85,8 @@ const updateExchangeRate = async () => {
   return msg.innerText;
 };
 const sendwhatsapp = async () => {
-  var phonenumber = "+917992889688";
-  let orderDetailsHeading = "ORDER DETAILS";
+  var phonenumber = "+916359096603";
+  let orderDetailsHeading = "Order Details From Maa Exchange World :-";
   let orderno = Math.floor(Math.random() * 1000000 + 1);
   let amount = document.querySelector(".amount input").value;
   let fromCurr = document.querySelector(".from select").value;
@@ -94,6 +94,7 @@ const sendwhatsapp = async () => {
   let msg = await updateExchangeRate();
   var name = document.querySelector(".name input").value;
   var email = document.querySelector(".email input").value;
+  var phoneno = document.querySelector(".mobileno input").value;
 
   var url =
     "https://wa.me/" +
@@ -106,6 +107,9 @@ const sendwhatsapp = async () => {
     "%0a" +
     "Email : " +
     email +
+    "%0a" +
+    "Phone No : " +
+    phoneno +
     "%0a" +
     "Amount: " +
     amount +
